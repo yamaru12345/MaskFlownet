@@ -9,7 +9,6 @@ repoRoot = r'.'
 
 import argparse
 import yaml
-import os
 import numpy as np
 import mxnet as mx
 import cv2
