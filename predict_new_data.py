@@ -156,7 +156,7 @@ if __name__ == "__main__":
         cv2.imwrite(args.flow_filepath, flow_vis.flow_to_color(flow, convert_to_bgr=False))
     else:
         flow_video, fps = predict_video_flow(args.video_filepath, batch_size=args.batch)
-        with open('./makflownet_flow.pkl', 'wb') as f:
+        with open('./flow.pkl', 'wb') as f:
             pickle.dump(flow_video, f)
         flow_video_visualisations = [flow_vis.flow_to_color(flow, convert_to_bgr=False) for flow in flow_video]
         flow_video_clip = create_video_clip_from_frames(flow_video_visualisations, fps)
