@@ -119,7 +119,7 @@ def predict_video_flow(frames_path, batch_size, resize=None, fps=10):
     prev_frames = [cv2.imread(os.path.join(frames_path, '000000.png'))]
     new_frames = []
     fps = fps
-    for i in range(1, len(os.listdir(frames_path)) - 1):
+    for i in range(1, len(os.listdir(frames_path))):
         prev_frames.append(cv2.imread(os.path.join(frames_path, f'{i:06d}.png')))
         new_frames.append(cv2.imread(os.path.join(frames_path, f'{i:06d}.png')))
     del prev_frames[-1]            
