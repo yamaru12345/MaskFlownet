@@ -102,12 +102,10 @@ def predict_video_flow(frames_path, batch_size, resize=None, fps=10):
     prev_frames = [cv2.imread(os.path.join(frames_path, '000000.png'))]
     new_frames = []
     fps = fps
-    for i in range(1, len(os.listdir(frames_path))):
+    for i in range(1, len(os.listdir(frames_path)) - 1):
         prev_frames.append(cv2.imread(os.path.join(frames_path, f'{i:06d}.png')))
         new_frames.append(cv2.imread(os.path.join(frames_path, f'{i:06d}.png')))
-        print(prev_frames[-1])
     del prev_frames[-1]            
-    print(len(prev_frames), len(new_frames))
     flow_video = [flow for flow, occ_mask, warped in pipe.predict(prev_frames, new_frames, batch_size=batch_size, resize=resize)]
     
     return flow_video, fps
