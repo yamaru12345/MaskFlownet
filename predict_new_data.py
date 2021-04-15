@@ -99,6 +99,23 @@ def create_video_clip_from_frames(frame_list, fps):
 
 
 def predict_video_flow(frames_path, batch_size, resize=None, fps=10):
+    """
+    cap = cv2.VideoCapture(video_filename)
+    fps = cap.get(cv2.CAP_PROP_FPS)
+
+    prev_frames = []
+    new_frames = []
+    has_frames, frame = cap.read()
+    prev_frames.append(frame)
+    while True:
+        has_frames, frame = cap.read()
+        if not has_frames:
+            cap.release()
+            break
+        new_frames.append(frame)
+        prev_frames.append(frame)
+    """
+    
     prev_frames = [cv2.imread(os.path.join(frames_path, '000000.png'))]
     new_frames = []
     fps = fps
