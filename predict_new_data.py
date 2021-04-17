@@ -113,10 +113,17 @@ def predict_video_flow(video_filename, batch_size, resize=None):
             break
         new_frames.append(frame)
         prev_frames.append(frame)
-    del prev_frames[-1] #delete the last frame of the video from prev_frames
-    flow_video = [flow for flow, occ_mask, warped in pipe.predict(prev_frames, new_frames, batch_size=batch_size, resize=resize)]
     
-    return flow_video, fps
+    del prev_frames[-1] #delete the last frame of the video from prev_frames
+    
+    prev_frames_rev = new_frames[::-1].copy()
+    new_frames_rev = prev_frames[::-1].copy()
+    
+    flow_video = [flow for flow, occ_mask, warped in pipe.predict(prev_frames, new_frames, batch_size=batch_size, resize=resize)]
+    flow_video_rev = [flow for flow, occ_mask, warped in pipe.predict(prev_frames_rev, new_frames_rev, batch_size=batch_size, resize=resize)]
+    flow_result = {'forward': flow_video, 'backward': flow_video_rev)
+    
+    return flow_result, fps
 
 
 if __name__ == "__main__":
@@ -154,10 +161,10 @@ if __name__ == "__main__":
         flow, occ_mask, warped = predict_image_pair_flow(image_1, image_2, pipe)
         cv2.imwrite(args.flow_filepath, flow_vis.flow_to_color(flow, convert_to_bgr=False))
     else:
-        flow_video, fps = predict_video_flow(args.video_filepath, batch_size=args.batch)
+        flow_result, fps = predict_video_flow(args.video_filepath, batch_size=args.batch)
         with open('./flow.pkl', 'wb') as f:
-            pickle.dump(flow_video, f)
-        flow_video_visualisations = [flow_vis.flow_to_color(flow, convert_to_bgr=False) for flow in flow_video]
+            pickle.dump(flow_result, f)
+        flow_video_visualisations = [flow_vis.flow_to_color(flow, convert_to_bgr=False) for flow in flow_resut['forward']]
         flow_video_clip = create_video_clip_from_frames(flow_video_visualisations, fps)
         flow_video_clip.write_videofile(args.flow_filepath, threads=args.threads, logger=None) #export the video
 
