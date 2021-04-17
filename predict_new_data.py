@@ -98,8 +98,7 @@ def create_video_clip_from_frames(frame_list, fps):
     return visual_clip #return the ImageSequenceClip
 
 
-def predict_video_flow(frames_path, batch_size, resize=None, fps=10):
-    """
+def predict_video_flow(video_filename, batch_size, resize=None):
     cap = cv2.VideoCapture(video_filename)
     fps = cap.get(cv2.CAP_PROP_FPS)
 
@@ -114,15 +113,7 @@ def predict_video_flow(frames_path, batch_size, resize=None, fps=10):
             break
         new_frames.append(frame)
         prev_frames.append(frame)
-    """
-    
-    prev_frames = [cv2.imread(os.path.join(frames_path, '000000.png'))]
-    new_frames = []
-    fps = fps
-    for i in range(1, len(os.listdir(frames_path))):
-        prev_frames.append(cv2.imread(os.path.join(frames_path, f'{i:06d}.png')))
-        new_frames.append(cv2.imread(os.path.join(frames_path, f'{i:06d}.png')))
-    del prev_frames[-1]            
+    del prev_frames[-1] #delete the last frame of the video from prev_frames
     flow_video = [flow for flow, occ_mask, warped in pipe.predict(prev_frames, new_frames, batch_size=batch_size, resize=resize)]
     
     return flow_video, fps
@@ -135,7 +126,7 @@ if __name__ == "__main__":
     parser.add_argument('config', type=str, nargs='?', default=None)
     parser.add_argument('--image_1', type=str, help='filepath of the first image')
     parser.add_argument('--image_2', type=str, help='filepath of the second image')
-    parser.add_argument('--frames_path', type=str, help='directorypath of the input frames')
+    parser.add_argument('--video_filepath', type=str, help='filepath of the input video')
     parser.add_argument('-g', '--gpu_device', type=str, default='', help='Specify gpu device(s)')
     parser.add_argument('-c', '--checkpoint', type=str, default=None, 
     	help='model checkpoint to load; by default, the latest one.'
@@ -163,7 +154,7 @@ if __name__ == "__main__":
         flow, occ_mask, warped = predict_image_pair_flow(image_1, image_2, pipe)
         cv2.imwrite(args.flow_filepath, flow_vis.flow_to_color(flow, convert_to_bgr=False))
     else:
-        flow_video, fps = predict_video_flow(args.frames_path, batch_size=args.batch)
+        flow_video, fps = predict_video_flow(args.video_filepath, batch_size=args.batch)
         with open('./flow.pkl', 'wb') as f:
             pickle.dump(flow_video, f)
         flow_video_visualisations = [flow_vis.flow_to_color(flow, convert_to_bgr=False) for flow in flow_video]
