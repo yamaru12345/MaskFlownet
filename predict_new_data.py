@@ -165,7 +165,7 @@ if __name__ == "__main__":
             pickle.dump(flow_result, f)
         with open('./flow_rev.pkl', 'wb') as f:
             pickle.dump(flow_rev_result, f)
-        flow_video_visualisations = [flow_vis.flow_to_color(flow, convert_to_bgr=False) for flow in flow_resut['forward']]
+        flow_video_visualisations = [flow_vis.flow_to_color(flow, convert_to_bgr=False) for flow in flow_result]
         flow_video_clip = create_video_clip_from_frames(flow_video_visualisations, fps)
         flow_video_clip.write_videofile(args.flow_filepath, threads=args.threads, logger=None) #export the video
 
