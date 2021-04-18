@@ -121,7 +121,7 @@ def predict_video_flow(video_filename, batch_size, resize=None):
     
     flow_video = [flow for flow, occ_mask, warped in pipe.predict(prev_frames, new_frames, batch_size=batch_size, resize=resize)]
     flow_video_rev = [flow for flow, occ_mask, warped in pipe.predict(prev_frames_rev, new_frames_rev, batch_size=batch_size, resize=resize)]
-    flow_result = {'forward': flow_video, 'backward': flow_video_rev)
+    flow_result = {'forward': flow_video, 'backward': flow_video_rev}
     
     return flow_result, fps
 
