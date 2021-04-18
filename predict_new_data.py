@@ -162,6 +162,7 @@ if __name__ == "__main__":
         cv2.imwrite(args.flow_filepath, flow_vis.flow_to_color(flow, convert_to_bgr=False))
     else:
         flow_result, fps = predict_video_flow(args.video_filepath, batch_size=args.batch)
+        print(flow_result)
         with open('./flow.pkl', 'wb') as f:
             pickle.dump(flow_result, f)
         flow_video_visualisations = [flow_vis.flow_to_color(flow, convert_to_bgr=False) for flow in flow_resut['forward']]
