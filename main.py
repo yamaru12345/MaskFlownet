@@ -45,6 +45,7 @@ parser.add_argument('-c', '--checkpoint', type=str, default=None,
 parser.add_argument('--clear_steps', action='store_true')
 # the choice of network
 parser.add_argument('-n', '--network', type=str, default='MaskFlownet')
+parser.add_argument('-s', '--samples', type=int, default=-1)
 # three modes
 parser.add_argument('--debug', action='store_true', help='Do debug')
 parser.add_argument('--valid', action='store_true', help='Do validation')
@@ -258,7 +259,7 @@ elif dataset_cfg.dataset.value == 'orig':
 	trainMask = []
 	orig_dataset = orig_loader.list_data()
 	if args.debug:
-		orig_dataset = [orig_dataset[0][:100], orig_dataset[1][:100]]
+		orig_dataset = [orig_dataset[0][:args.samples], orig_dataset[1][:args.samples]]
 	print(len(orig_dataset[0]))
 
 	train_data_count = 0
