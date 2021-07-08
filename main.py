@@ -45,7 +45,7 @@ parser.add_argument('-c', '--checkpoint', type=str, default=None,
 parser.add_argument('--clear_steps', action='store_true')
 # the choice of network
 parser.add_argument('-n', '--network', type=str, default='MaskFlownet')
-parser.add_argument('-s', '--samples', type=int, default=-1)
+parser.add_argument('--samples', type=int, default=-1)
 # three modes
 parser.add_argument('--debug', action='store_true', help='Do debug')
 parser.add_argument('--valid', action='store_true', help='Do validation')
