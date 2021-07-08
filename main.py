@@ -258,7 +258,7 @@ elif dataset_cfg.dataset.value == 'orig':
 	trainMask = []
 	orig_dataset = orig_loader.list_data()
 	if args.debug:
-		orig_dataset = [orig_dataset[0][:200], orig_dataset[1][:200]]
+		orig_dataset = [orig_dataset[0][:100], orig_dataset[1][:100]]
 	print(len(orig_dataset[0]))
 
 	train_data_count = 0
