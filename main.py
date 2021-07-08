@@ -64,6 +64,10 @@ with open(os.path.join(repoRoot, 'network', 'config', args.config)) as f:
 # load training configuration
 with open(os.path.join(repoRoot, 'network', 'config', args.dataset_cfg)) as f:
 	dataset_cfg = network.config.Reader(yaml.load(f))
+
+print(config)
+print(dataset_cfg)
+
 validation_steps = dataset_cfg.validation_steps.value
 checkpoint_steps = dataset_cfg.checkpoint_steps.value
 
@@ -122,6 +126,8 @@ pipe = get_pipeline(args.network, ctx=ctx, config=config)
 lr_schedule = dataset_cfg.optimizer.learning_rate.get(None)
 if lr_schedule is not None:
 	pipe.lr_schedule = lr_schedule
+
+print(lr_schedule, pipe.lr_schedule)
 
 # load parameters from given checkpoint
 if args.checkpoint is not None:
