@@ -59,6 +59,7 @@ infer_resize = [int(s) for s in args.resize.split(',')] if args.resize else None
 
 import network.config
 # load network configuration
+print(f'config: {os.path.join(repoRoot, 'network', 'config', args.config)}')
 with open(os.path.join(repoRoot, 'network', 'config', args.config)) as f:
 	config =  network.config.Reader(yaml.load(f))
 # load training configuration
