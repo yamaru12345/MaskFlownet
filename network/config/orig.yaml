@@ -1,0 +1,11 @@
+validation_steps:
+  1000
+
+checkpoint_steps:
+  2500
+
+dataset:
+  orig
+
+target_shape:
+  [704, 2624]
