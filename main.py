@@ -65,9 +65,6 @@ with open(os.path.join(repoRoot, 'network', 'config', args.config)) as f:
 with open(os.path.join(repoRoot, 'network', 'config', args.dataset_cfg)) as f:
 	dataset_cfg = network.config.Reader(yaml.load(f))
 
-print(config)
-print(dataset_cfg)
-
 validation_steps = dataset_cfg.validation_steps.value
 checkpoint_steps = dataset_cfg.checkpoint_steps.value
 
@@ -122,6 +119,7 @@ if args.checkpoint is None or args.clear_steps:
 
 # initiate
 from network import get_pipeline
+print(config.optimizer)
 pipe = get_pipeline(args.network, ctx=ctx, config=config)
 lr_schedule = dataset_cfg.optimizer.learning_rate.get(None)
 if lr_schedule is not None:
