@@ -119,13 +119,13 @@ if args.checkpoint is None or args.clear_steps:
 
 # initiate
 from network import get_pipeline
-print(config.optimizer)
+print(f'config.optimizer: {config.optimizer}')
 pipe = get_pipeline(args.network, ctx=ctx, config=config)
 lr_schedule = dataset_cfg.optimizer.learning_rate.get(None)
 if lr_schedule is not None:
 	pipe.lr_schedule = lr_schedule
 
-print(lr_schedule, pipe.lr_schedule)
+print(f'lr_schedule: {lr_schedule}, {pipe.lr_schedule}')
 
 # load parameters from given checkpoint
 if args.checkpoint is not None:
