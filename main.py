@@ -446,6 +446,7 @@ t1 = None
 checkpoints = []
 while True:
 	steps += 1
+	
 	if not pipe.set_learning_rate(steps):
 		sys.exit(0)
 	batch = []
