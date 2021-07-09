@@ -72,6 +72,7 @@ checkpoint_steps = dataset_cfg.checkpoint_steps.value
 
 # create directories
 def mkdir(path):
+	print(path)
 	if not os.path.exists(path):
 		os.makedirs(path)
 mkdir(os.path.join(args.savedir, 'logs'))
