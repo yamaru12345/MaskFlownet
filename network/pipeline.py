@@ -26,7 +26,7 @@ class PipelineFlownet:
 		self.network.collect_params().initialize(init=mx.initializer.MSRAPrelu(slope=0.1), ctx=self.ctx)
 		target_params = []
 		for param in self.network.collect_params():
-			if maskflownet_s0 not in param:
+			if 'maskflownet_s0' not in param:
 				target_params.append(param)
 		print(target_params)
 		#self.trainer = gluon.Trainer(self.network.collect_params(), 'adam', {'learning_rate': 1e-5})
