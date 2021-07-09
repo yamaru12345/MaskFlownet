@@ -156,7 +156,7 @@ if args.checkpoint is not None:
 if args.predict:
 	import predict
 	checkpoint_name = os.path.basename(checkpoint).replace('.params', '')
-	predict.predict(pipe, os.path.join(savedir, 'flows', checkpoint_name), batch_size=args.batch, resize = infer_resize)
+	predict.predict(pipe, os.path.join(args.savedir, 'flows', checkpoint_name), batch_size=args.batch, resize = infer_resize)
 	sys.exit(0)
 
 
@@ -169,7 +169,7 @@ def validate():
 	return validation_result
 
 if args.valid:
-	log = logger.FileLog(os.path.join(savedir, 'logs', 'val', '{}.val.log'.format(run_id)), screen=True)
+	log = logger.FileLog(os.path.join(args.savedir, 'logs', 'val', '{}.val.log'.format(run_id)), screen=True)
 	
 	# sintel
 	sintel_dataset = sintel.list_data()
@@ -314,7 +314,7 @@ print('target shape: ' + str(target_shape))
 sys.stdout.flush()
 
 # create log file
-log = logger.FileLog(os.path.join(savedir, 'logs', 'debug' if args.debug else '', '{}.log'.format(run_id)))
+log = logger.FileLog(os.path.join(args.savedir, 'logs', 'debug' if args.debug else '', '{}.log'.format(run_id)))
 log.log('start={}, train={}, val={}, host={}, batch={}'.format(steps, trainSize, validationSize, socket.gethostname(), batch_size))
 information = ', '.join(['{}={}'.format(k, repr(args.__dict__[k])) for k in args.__dict__])
 log.log(information)
@@ -488,7 +488,7 @@ while True:
 
 		# save parameters
 		if steps % checkpoint_steps == 0:
-			prefix = os.path.join(savedir, 'weights', '{}_{}'.format(run_id, steps))
+			prefix = os.path.join(args.savedir, 'weights', '{}_{}'.format(run_id, steps))
 			pipe.save(prefix)
 			checkpoints.append(prefix)
 
