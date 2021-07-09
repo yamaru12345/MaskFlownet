@@ -24,7 +24,7 @@ class PipelineFlownet:
 		self.network = build_network(getattr(config.network, 'class').get('MaskFlownet'))(config=config)
 		self.network.hybridize()
 		self.network.collect_params().initialize(init=mx.initializer.MSRAPrelu(slope=0.1), ctx=self.ctx)
-		self.network.collect_params('(?maskflownet0_maskflownet_s0).*').setattr('grad_req', 'null')
+		self.network.collect_params('(maskflownet0_maskflownet_s0).*').setattr('grad_req', 'null')
 		self.trainer = gluon.Trainer(self.network.collect_params(), 'adam', {'learning_rate': 1e-5})
 		self.strides = self.network.strides or [64, 32, 16, 8, 4]
 
