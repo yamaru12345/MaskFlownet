@@ -8,7 +8,7 @@ optimizer:
     #- [800000, 6.25e-6]
 
   wd:
-    4.0e-4
+    4.0e-6
 
 network:
   class:
