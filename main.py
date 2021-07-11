@@ -447,7 +447,8 @@ for i in range(1):
 
 t1 = None
 checkpoints = []
-while True:
+sw = SummaryWriter(logdir='./logs', flush_secs=5)
+while True:		
 	steps += 1
 	
 	if not pipe.set_learning_rate(steps):
@@ -470,6 +471,8 @@ while True:
 	if len(batch) == 4:
 		img1, img2, flow, mask = [batch[i] for i in range(4)]
 		train_log = pipe.train_batch(img1, img2, flow, geo_aug, color_aug, mask = mask)
+		if steps == 1:
+			print(train_log)
 	else:
 		img1, img2, flow = [batch[i] for i in range(3)]
 		train_log = pipe.train_batch(img1, img2, flow, geo_aug, color_aug)
@@ -479,6 +482,11 @@ while True:
 		train_avg.update(train_log)
 		log.log('steps={}{}, total_time={:.2f}'.format(steps, ''.join([', {}={}'.format(k, v) for k, v in train_avg.average.items()]), total_time.average))
 		print('steps={}{}, total_time={:.2f}'.format(steps, ''.join([', {}={}'.format(k, v) for k, v in train_avg.average.items()]), total_time.average))
+	
+	if steps == 1:
+    		sw.add_graph(net)
+		
+	#sw.add_scalar(tag='cross_entropy', value=L.mean().asscalar(), global_step=global_step)
 		
 	# do valiation
 	if steps % validation_steps == 0 or steps <= 1:
