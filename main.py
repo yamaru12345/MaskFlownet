@@ -483,8 +483,8 @@ while True:
 		log.log('steps={}{}, total_time={:.2f}'.format(steps, ''.join([', {}={}'.format(k, v) for k, v in train_avg.average.items()]), total_time.average))
 		print('steps={}{}, total_time={:.2f}'.format(steps, ''.join([', {}={}'.format(k, v) for k, v in train_avg.average.items()]), total_time.average))
 	
-	if steps == 1:
-    		sw.add_graph(net)
+	#if steps == 1:
+        #	sw.add_graph(net)
 		
 	#sw.add_scalar(tag='cross_entropy', value=L.mean().asscalar(), global_step=global_step)
 		
