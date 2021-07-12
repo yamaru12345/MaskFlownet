@@ -1,8 +1,8 @@
 validation_steps:
-  1000
+  100
 
 checkpoint_steps:
-  2500
+  250
 
 dataset:
   orig
