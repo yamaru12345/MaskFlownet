@@ -498,7 +498,8 @@ while True:
 
 		# save parameters
 		if steps % checkpoint_steps == 0:
-			prefix = os.path.join(args.savedir, 'weights', '{}_{}'.format(run_id, steps))
+			#prefix = os.path.join(args.savedir, 'weights', '{}_{}'.format(run_id, steps))
+			prefix = os.path.join(args.savedir, '{}_{}'.format(run_id, steps))
 			pipe.save(prefix)
 			checkpoints.append(prefix)
 
