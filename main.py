@@ -494,6 +494,7 @@ while True:
 		if validationSize > 0:
 			val_result = validate()
 			log.log('steps={}{}'.format(steps, ''.join([', {}={}'.format(k, v) for k, v in val_result.items()])))
+			print('steps={}{}'.format(steps, ''.join([', {}={}'.format(k, v) for k, v in val_result.items()])))
 
 		# save parameters
 		if steps % checkpoint_steps == 0:
