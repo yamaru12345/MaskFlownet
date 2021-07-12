@@ -1,6 +1,6 @@
 optimizer:
   learning_rate:
-    - [4000, 1.0e-5]
+    - [2500, 1.0e-5]
 
   wd:
     4.0e-6
